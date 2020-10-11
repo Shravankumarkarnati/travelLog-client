@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../utils/context";
+import SearchResults from "../searchResults/searchResults";
 import "./sideSection.scss";
-import SideHeader from "./sideHeader";
-// import SideFooter from "./sideFooter";
 
 interface sideSectionProps {}
 
 const SideSection: React.FC<sideSectionProps> = () => {
+  const { search } = useContext(AppContext);
   return (
     <div className="sideSection">
-      <SideHeader />
-      {/* <SideBody /> */}
-      {/* <SideFooter></SideFooter> */}
+      {search.inputText ? <SearchResults /> : <p>Logs</p>}
     </div>
   );
 };

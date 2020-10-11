@@ -1,12 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./navbar.scss";
 import { RiMapFill } from "react-icons/ri";
+import { ImSearch } from "react-icons/im";
 import { AppContext } from "../../utils/context";
+import useDebouncedSearch from "./../../utils/useDebouncedSearch.hook";
+import { getResultsWithText } from "../../utils/mapBoxApi";
 
 interface navbarProps {}
 
 const Navbar: React.FC<navbarProps> = ({}) => {
-  const { token } = useContext(AppContext);
+  const { token, username, changeContext, ...context } = useContext(AppContext);
+  const useGetSearchResults = () =>
+    useDebouncedSearch((text: string) => getResultsWithText(text));
+
+  const { inputText, setInputText, searchResults } = useGetSearchResults();
+  const loading = searchResults.loading;
+  useEffect(() => {
+    changeContext!({
+      token,
+      username,
+      ...context,
+      search: {
+        ...context.search,
+        results: searchResults,
+      },
+    });
+  }, [loading]);
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -18,7 +38,24 @@ const Navbar: React.FC<navbarProps> = ({}) => {
           <span>Log</span>
         </div>
       </div>
-      <div className="user">{token ? <p>Logged In</p> : <p>Login</p>}</div>
+      <div className="navbar-search">
+        <div className="svg">
+          <ImSearch />
+        </div>
+        <input
+          className="input"
+          placeholder="Search a place"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+        />
+      </div>
+      <div className="navbar-user">
+        {token && username ? (
+          <button className="mainBtn">{username}</button>
+        ) : (
+          <button className="mainBtn">LogIn</button>
+        )}
+      </div>
     </nav>
   );
 };

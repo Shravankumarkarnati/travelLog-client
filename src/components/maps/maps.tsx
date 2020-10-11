@@ -52,7 +52,7 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
 
   return (
     <div className="maps">
-      <ReactMapGL
+      {/* <ReactMapGL
         className="mapBox"
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOXACCESSKEY}
         {...viewport}
@@ -63,7 +63,7 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
         // onDblClick={_dbClick}
       >
         {children}
-      </ReactMapGL>
+      </ReactMapGL> */}
     </div>
   );
 };
