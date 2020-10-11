@@ -5,7 +5,7 @@ import "./searchResults.scss";
 
 interface searchResultsProps {}
 
-const SearchResults: React.FC<searchResultsProps> = ({}) => {
+const SearchResults: React.FC<searchResultsProps> = () => {
   const { search, changeContext, ...context } = useContext(AppContext);
   return (
     <div className="searchResults">

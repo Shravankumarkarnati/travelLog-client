@@ -16,21 +16,22 @@
         align-items: flex-start;
         justify-content: flex-start;
 
-        & .result {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            font-size: 1.8rem;
-            color: black;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            border-bottom: .2rem solid grey;
-            cursor: pointer;
+    }
+}
 
-            &:hover {
-                border-radius: .5rem;
-                background: black;
-                color: white;
-            }
-        }
+.result {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.8rem;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    border-bottom: .2rem solid grey;
+    cursor: pointer;
+
+    &:hover {
+        border-radius: .5rem;
+        background: black;
+        color: white;
     }
 }

@@ -7,16 +7,26 @@ export interface IInput {
   password: string;
 }
 
-export const register = async ({ username, password }: IInput) => {
-  return await axios.post(`${uri}/user/register`, {
-    username,
-    password,
-  });
+export const userLogin = async ({ username, password }: IInput) => {
+  return await axios.post(
+    `${uri}/user/login`,
+    {
+      username,
+      password,
+    },
+    { withCredentials: true }
+  );
 };
 
-export const login = async ({ username, password }: IInput) => {
-  return await axios.post(`${uri}/user/login`, {
-    username,
-    password,
-  });
+export const logout = async () => {
+  return await axios.post(`${uri}/user/logout`, {}, { withCredentials: true });
+};
+
+export const refreshToken = async () => {
+  const res = await axios.post(
+    `${uri}/user/refreshtoken`,
+    {},
+    { withCredentials: true }
+  );
+  return res;
 };
