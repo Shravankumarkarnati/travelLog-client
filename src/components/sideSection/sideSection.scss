@@ -1,0 +1,99 @@
+.sideSection {
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    color: black;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    & .header {
+        width: 100%;
+
+        .floater {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 100%;
+            box-shadow: .1rem .1rem 1rem black;
+            background-color: black;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.logged {
+                background-color: green;
+
+            }
+
+            & svg {
+                width: 2rem;
+                height: 2rem;
+                fill: white;
+            }
+        }
+
+        & .navList {
+            width: 100%;
+            list-style: none;
+            border: 2px solid black;
+            border-radius: .5rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &--item {
+                flex: 1;
+                text-align: center;
+                font-size: 1.6rem;
+                text-transform: uppercase;
+                border-radius: .5rem;
+                padding: 1rem 0;
+                font-weight: 700;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &.active {
+                    background: black;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    // & .footer {
+    //     width: 100%;
+    //     text-align: center;
+    //     margin-top: 2rem;
+    //     font-size: 1.3rem;
+    //     padding: 1rem;
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     justify-content: center;
+    //     border-radius: 1rem;
+
+    //     .icon {
+    //         margin-right: 2rem;
+
+    //         & svg {
+    //             width: 5rem;
+    //             height: 5rem;
+
+    //             & svg {
+    //                 width: 100%;
+    //                 height: 100%;
+    //                 fill: black;
+    //             }
+    //         }
+    //     }
+
+
+    // }
+}
