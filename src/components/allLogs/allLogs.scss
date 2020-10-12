@@ -1,15 +1,28 @@
 .allLogs {
     width: 100%;
-    height: 100%;
+    height: 80vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 
+    overflow: hidden;
+
+    &-title {
+        width: 100%;
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        text-decoration: underline;
+    }
+
     & .logs {
         width: 100%;
         height: 100%;
+
+        overflow-y: scroll;
 
         display: flex;
         flex-direction: column;

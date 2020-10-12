@@ -15,7 +15,7 @@ const validation = ({ username, password }: IInput) => {
   return true;
 };
 
-const LoginPage: React.FC<loginPageProps> = ({}) => {
+const LoginPage: React.FC<loginPageProps> = () => {
   const { token, username, login, changeContext, ...context } = useContext(
     AppContext
   );

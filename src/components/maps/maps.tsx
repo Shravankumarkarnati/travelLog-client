@@ -3,6 +3,7 @@ import ReactMapGL from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./maps.scss";
 import { AppContext } from "../../utils/context";
+import { getAddressWithCord } from "../../utils/mapBoxApi";
 
 interface mapsProps {}
 
@@ -16,7 +17,7 @@ interface IviewPort {
 }
 
 const Maps: React.FC<mapsProps> = ({ children }) => {
-  const { flyTo } = useContext(AppContext);
+  const { flyTo, addLog, changeContext, ...context } = useContext(AppContext);
   const [viewport, setViewPort] = useState<IviewPort>({
     width: "100%",
     flexGrow: 1,
@@ -26,19 +27,18 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
     zoom: 4,
   });
 
-  // const _dbClick = async (e) => {
-  //   const cord = e.lngLat;
-  //   const api = new API();
-  //   const suggest = await api.getAddressWithCord(cord);
-  //   changeContext({
-  //     ...context,
-  //     active: 3,
-  //     data: {
-  //       cord,
-  //       suggest,
-  //     },
-  //   });
-  // };
+  const _dbClick = async (e: any) => {
+    const cord = e.lngLat;
+    const suggest = await getAddressWithCord(cord);
+    changeContext!({
+      flyTo,
+      addLog: {
+        cord,
+        suggest: suggest.map((cur: any) => cur.place_name),
+      },
+      ...context,
+    });
+  };
   useEffect(() => {
     if (flyTo) {
       setViewPort({
@@ -52,7 +52,7 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
 
   return (
     <div className="maps">
-      {/* <ReactMapGL
+      <ReactMapGL
         className="mapBox"
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOXACCESSKEY}
         {...viewport}
@@ -60,10 +60,10 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
         onViewportChange={(nextViewport: any) => {
           setViewPort(nextViewport);
         }}
-        // onDblClick={_dbClick}
+        onDblClick={_dbClick}
       >
         {children}
-      </ReactMapGL> */}
+      </ReactMapGL>
     </div>
   );
 };

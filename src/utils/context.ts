@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-interface cords {
+export interface cords {
   longitude: number;
   latitude: number;
 }
@@ -18,6 +18,10 @@ export interface IAppContext {
   selected?: null | cords;
   logs?: any[];
   login: Boolean;
+  addLog: {
+    cord: cords;
+    suggest: string[];
+  } | null;
 }
 
 export const AppContext = createContext<IAppContext>({
@@ -29,4 +33,5 @@ export const AppContext = createContext<IAppContext>({
     results: null,
   },
   login: false,
+  addLog: null,
 });
