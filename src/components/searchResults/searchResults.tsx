@@ -6,57 +6,79 @@ import "./searchResults.scss";
 interface searchResultsProps {}
 
 const SearchResults: React.FC<searchResultsProps> = () => {
-  const { search, changeContext, ...context } = useContext(AppContext);
+  const { search, addLog, changeContext, ...context } = useContext(AppContext);
   return (
     <div className="searchResults">
-      {search.results.loading ? (
+      {search?.loading ? (
         <Loader />
       ) : (
         <div className="searchResults-results">
-          {search.results.result.map((cur: any, index: number) => {
-            return (
-              <div
-                className="result"
-                key={index}
-                onClick={() => {
-                  changeContext!({
-                    ...context,
-                    search,
-                    focused: null,
-                    selected: {
-                      longitude: cur.geometry.coordinates[0],
-                      latitude: cur.geometry.coordinates[1],
-                    },
-                  });
-                }}
-                onMouseEnter={() => {
-                  changeContext!({
-                    ...context,
-                    search,
-                    focused: {
-                      longitude: cur.geometry.coordinates[0],
-                      latitude: cur.geometry.coordinates[1],
-                    },
-                  });
-                }}
-                onMouseLeave={() => {
-                  changeContext!({
-                    ...context,
-                    search,
-                    focused: null,
-                  });
-                }}
-              >
-                <p
-                  className="name"
-                  data-longitude={cur.geometry.coordinates[0]}
-                  data-latitude={cur.geometry.coordinates[1]}
+          {search?.results &&
+            search?.results.result.map((cur: any, index: number) => {
+              return (
+                <div
+                  className="result"
+                  key={index}
+                  onClick={() => {
+                    changeContext!({
+                      search,
+                      focused: null,
+                      addLog: {
+                        cord: [
+                          cur.geometry.coordinates[0],
+                          cur.geometry.coordinates[1],
+                        ],
+                        suggest: [],
+                        title: cur.place_name,
+                      },
+                      ...context,
+                    });
+                  }}
+                  onMouseEnter={() => {
+                    changeContext!({
+                      ...context,
+                      search,
+                      addLog: addLog,
+                      focused: [
+                        cur.geometry.coordinates[0],
+                        cur.geometry.coordinates[1],
+                      ],
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    changeContext!({
+                      ...context,
+                      search,
+                      addLog: addLog,
+                      focused: null,
+                    });
+                  }}
                 >
-                  {cur.place_name}
-                </p>
-              </div>
-            );
-          })}
+                  <p
+                    className="name"
+                    data-longitude={cur.geometry.coordinates[0]}
+                    data-latitude={cur.geometry.coordinates[1]}
+                  >
+                    {cur.place_name}
+                  </p>
+                </div>
+              );
+            })}
+          <div>
+            <button
+              className="mainBtn"
+              onClick={() => {
+                changeContext!({
+                  ...context,
+                  search,
+                  addLog: null,
+                  focused: null,
+                });
+              }}
+            >
+              Back
+            </button>
+          </div>
         </div>
       )}
     </div>

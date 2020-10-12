@@ -5,19 +5,22 @@ import SearchResults from "../searchResults/searchResults";
 import "./sideSection.scss";
 import LoginPage from "./../loginPage/loginPage";
 import AddLog from "../addLogs/addLog";
+import CurrentLog from "../currentLog/currentLog";
 
 interface sideSectionProps {}
 
 const SideSection: React.FC<sideSectionProps> = () => {
-  const { search, login, addLog } = useContext(AppContext);
+  const { search, login, addLog, currentLog } = useContext(AppContext);
   return (
     <div className="sideSection">
       {login ? (
         <LoginPage />
-      ) : search.inputText ? (
-        <SearchResults />
       ) : addLog ? (
         <AddLog />
+      ) : search.inputText?.length > 0 ? (
+        <SearchResults />
+      ) : currentLog ? (
+        <CurrentLog />
       ) : (
         <AllLogs />
       )}

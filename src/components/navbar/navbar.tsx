@@ -9,7 +9,7 @@ import { logout, refreshToken } from "./../../utils/travelLogApi";
 
 interface navbarProps {}
 
-const Navbar: React.FC<navbarProps> = ({}) => {
+const Navbar: React.FC<navbarProps> = () => {
   const { token, username, changeContext, ...context } = useContext(AppContext);
   const [usernameText, setUsernameText] = useState("");
 
@@ -40,6 +40,7 @@ const Navbar: React.FC<navbarProps> = ({}) => {
       search: {
         ...context.search,
         results: searchResults,
+        loading,
       },
     });
   }, [loading]);

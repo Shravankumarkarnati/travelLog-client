@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./maps.scss";
 import { AppContext } from "../../utils/context";
 import { getAddressWithCord } from "../../utils/mapBoxApi";
+import MarkerComp from "../markers/markerComp";
 
 interface mapsProps {}
 
@@ -17,7 +18,7 @@ interface IviewPort {
 }
 
 const Maps: React.FC<mapsProps> = ({ children }) => {
-  const { flyTo, addLog, changeContext, ...context } = useContext(AppContext);
+  const { focused, addLog, changeContext, ...context } = useContext(AppContext);
   const [viewport, setViewPort] = useState<IviewPort>({
     width: "100%",
     flexGrow: 1,
@@ -31,7 +32,6 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
     const cord = e.lngLat;
     const suggest = await getAddressWithCord(cord);
     changeContext!({
-      flyTo,
       addLog: {
         cord,
         suggest: suggest.map((cur: any) => cur.place_name),
@@ -40,15 +40,23 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
     });
   };
   useEffect(() => {
-    if (flyTo) {
+    if (focused) {
       setViewPort({
         ...viewport,
-        longitude: flyTo.longitude,
-        latitude: flyTo.latitude,
+        longitude: focused[0],
+        latitude: focused[1],
+        zoom: 6,
+      });
+    } else {
+      setViewPort({
+        ...viewport,
+        longitude: -98.35,
+        latitude: 39.5,
+        zoom: 4,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flyTo]);
+  }, [focused]);
 
   return (
     <div className="maps">
@@ -62,6 +70,7 @@ const Maps: React.FC<mapsProps> = ({ children }) => {
         }}
         onDblClick={_dbClick}
       >
+        <MarkerComp />
         {children}
       </ReactMapGL>
     </div>

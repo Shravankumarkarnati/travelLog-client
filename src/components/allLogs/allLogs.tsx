@@ -18,7 +18,6 @@ const AllLogs: React.FC<allLogsProps> = () => {
       }
     })();
   }, [context.username]);
-
   return (
     <div className="allLogs">
       <div className="allLogs-title">Your Logs</div>
@@ -33,22 +32,22 @@ const AllLogs: React.FC<allLogsProps> = () => {
               onClick={() => {
                 changeContext!({
                   ...context,
-                  focused: null,
+                  focused: [
+                    cur.location.coordinates[0],
+                    cur.location.coordinates[1],
+                  ],
                   logs,
-                  selected: {
-                    longitude: cur.location.coordinates[0],
-                    latitude: cur.location.coordinates[1],
-                  },
+                  currentLog: cur,
                 });
               }}
               onMouseEnter={() => {
                 changeContext!({
                   ...context,
                   logs,
-                  focused: {
-                    longitude: cur.location.coordinates[0],
-                    latitude: cur.location.coordinates[1],
-                  },
+                  focused: [
+                    cur.location.coordinates[0],
+                    cur.location.coordinates[1],
+                  ],
                 });
               }}
               onMouseLeave={() => {

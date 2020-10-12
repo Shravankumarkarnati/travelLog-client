@@ -6,11 +6,13 @@ import "./addLog.scss";
 interface addLogProps {}
 
 const AddLog: React.FC<addLogProps> = () => {
-  const { token, addLog, changeContext, ...context } = useContext(AppContext);
+  const { token, addLog, search, changeContext, ...context } = useContext(
+    AppContext
+  );
   const [submitting, setSubmitting] = useState(false);
   const [failed, setFailed] = useState("");
   const [log, setLog] = useState({
-    title: null,
+    title: addLog?.title || null,
     description: "",
     rating: 1,
     visitedDate: new Date().toISOString().slice(0, 10),
@@ -27,16 +29,25 @@ const AddLog: React.FC<addLogProps> = () => {
   const handleSubmit = async (e: FormEvent) => {
     setSubmitting(true);
     e.preventDefault();
-    log.visitedDate = new Date(log.visitedDate).toLocaleDateString();
+    const date = log.visitedDate.split("-");
+    const newDate = `${date[1]}/${date[2]}/${date[0]}`;
+    log.visitedDate = newDate;
+    console.log(log, "log");
     const res = await createLog(token!, log as any);
+    console.log(res, "fin");
     setSubmitting(false);
     if (res.data.error) {
       setFailed(res.data.error);
     } else {
       changeContext!({
-        ...context,
         token,
         addLog: null,
+        search: {
+          inputText: "",
+          loading: false,
+          results: null,
+        },
+        ...context,
       });
     }
   };
@@ -102,9 +113,14 @@ const AddLog: React.FC<addLogProps> = () => {
           className="mainBtn"
           onClick={() => {
             changeContext!({
-              ...context,
               token,
+              search: {
+                inputText: "",
+                loading: false,
+                results: null,
+              },
               addLog: null,
+              ...context,
             });
           }}
         >

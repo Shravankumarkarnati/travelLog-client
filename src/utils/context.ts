@@ -1,37 +1,39 @@
 import { createContext } from "react";
 
-export interface cords {
-  longitude: number;
-  latitude: number;
-}
+export type cords = number[];
 
 export interface IAppContext {
   changeContext?: (newContext: IAppContext) => void;
-  flyTo: { longitude: number; latitude: number } | null;
   token: string | null;
   username: string | null;
   search: {
     inputText: string;
     results: any;
+    loading: Boolean;
   };
   focused?: cords | null;
   selected?: null | cords;
-  logs?: any[];
+  logs: any[];
   login: Boolean;
   addLog: {
     cord: cords;
     suggest: string[];
+    title?: null | string;
   } | null;
+  currentLog: any;
 }
 
 export const AppContext = createContext<IAppContext>({
-  flyTo: null,
   token: null,
   username: null,
   search: {
     inputText: "",
     results: null,
+    loading: false,
   },
   login: false,
   addLog: null,
+
+  logs: [],
+  currentLog: null,
 });
