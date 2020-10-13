@@ -5,7 +5,7 @@ import { AppContext } from "../../utils/context";
 import "./markerComp.scss";
 
 const MarkerComp = () => {
-  const { focused, logs, changeContext, ...context } = useContext(AppContext);
+  const { focused, logs } = useContext(AppContext);
   return (
     <div className="markers">
       {focused ? (

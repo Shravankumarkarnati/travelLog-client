@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 
+
+$screen-fourk: 1920px;
+$screen-desktop: 1440px;
+$screen-tabletL: 1024px;
+$screen-tabletP: 786px;
+$screen-mobileL: 500px;
+$screen-mobileM: 400px;
+$screen-mobileS: 350px;
+
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +19,38 @@
 html {
     font-family: 'Rubik', sans-serif;
     font-size: 62.5%;
+
+    @media only screen and (min-width: $screen-fourk) {
+        font-size: 120%;
+    }
+
+    @media only screen and (max-width: $screen-fourk) {
+        font-size: 70.5%;
+    }
+
+    @media only screen and (max-width: $screen-desktop) {
+        font-size: 62.5%;
+    }
+
+    @media only screen and (max-width: $screen-tabletL) {
+        font-size: 60%;
+    }
+
+    @media only screen and (max-width: $screen-tabletP) {
+        font-size: 50%;
+    }
+
+    @media only screen and (max-width: $screen-mobileL) {
+        font-size: 30%;
+    }
+
+    @media only screen and (max-width: $screen-mobileM) {
+        font-size: 25%;
+    }
+
+    @media only screen and (max-width: $screen-mobileS) {
+        font-size: 20%;
+    }
 }
 
 #root {
@@ -22,15 +63,15 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background: #000;
-}
-
-::-webkit-scrollbar-thumb {
     background: #fff;
 }
 
+::-webkit-scrollbar-thumb {
+    background: #000;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #eee;
+    background: #aaa;
 }
 
 .App {

@@ -1,6 +1,6 @@
 import React, { FormEvent, useContext, useState } from "react";
 import { AppContext } from "../../utils/context";
-import { createLog, deleteLog, updateLog } from "./../../utils/travelLogApi";
+import { deleteLog, updateLog } from "./../../utils/travelLogApi";
 
 interface currentLogProps {}
 
