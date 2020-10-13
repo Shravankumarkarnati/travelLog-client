@@ -2,7 +2,10 @@ import axios from "axios";
 import { cords } from "./context";
 import jwt_decode from "jwt-decode";
 
-const uri = "http://localhost:5000/api";
+const uri =
+  process.env.NODE_ENV !== "development"
+    ? process.env.REACT_APP_API
+    : "http://localhost:5000/api";
 
 export interface IInput {
   username: string;
